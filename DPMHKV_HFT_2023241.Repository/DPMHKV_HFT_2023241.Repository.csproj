@@ -4,4 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DPMHKV_HFT_2023241.Models\DPMHKV_HFT_2023241.Models.csproj" />
+  </ItemGroup>
+
 </Project>
