@@ -10,13 +10,22 @@ namespace DPMHKV_HFT_2023241.Models
     public class Musician
     {
         [Key]
-        public string PersonalID {  get; set; }
-        public string Name {  get; set; }
-        public string Instrument { get; set; } //this will be a foreign key which references SerialNumber
+        public string MusicianID {  get; set; }
+        public string Name {  get; set; }      
         public string BandName {  get; set; }
+        public virtual ICollection<Guitar> Guitars { get; set; }
         public Musician()
         {
-            
+            Guitars = new HashSet<Guitar>();
+        }
+
+        public Musician(string line)
+        {
+            string[] split = line.Split('#');
+            MusicianID = split[0];
+            Name = split[1];
+            BandName = split[2];
+            Guitars = new HashSet<Guitar>();
         }
     }
 }
