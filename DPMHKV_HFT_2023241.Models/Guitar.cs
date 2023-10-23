@@ -34,9 +34,8 @@ namespace DPMHKV_HFT_2023241.Models
             SerialNumberID = int.Parse(split[0]);
             Shape = split[1];
             Color = split[2];
-            YearOfProduction = int.Parse(split[3]);
-            BrandID = split[4];
-            MusicianID = split[5];
+            BrandID = split[3];
+            MusicianID = split[4];
         }
     }
 }
