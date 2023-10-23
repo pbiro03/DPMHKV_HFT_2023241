@@ -17,7 +17,7 @@ namespace DPMHKV_HFT_2023241.Repository
         {
             if (!optionsBuilder.IsConfigured)
             {
-                string conn = @"";
+                string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\guitar.mdf;Integrated Security=True;MultipleActiveResultSets=true";
                 optionsBuilder.UseLazyLoadingProxies().UseSqlServer(conn);
             }
         }
