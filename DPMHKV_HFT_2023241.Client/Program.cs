@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DPMHKV_HFT_2023241.Repository;
+using System;
+using System.Linq;
 
 namespace DPMHKV_HFT_2023241.Client
 {
@@ -6,8 +8,8 @@ namespace DPMHKV_HFT_2023241.Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-          
+            
+            
         }
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DPMHKV_HFT_2023241.Repository
 {
-    internal class GuitarDBContext : DbContext
+    public class GuitarDBContext : DbContext
     {
         public DbSet<Guitar> Guitars { get; set; }
         public DbSet<Musician> Musicians { get; set; }
@@ -17,8 +17,9 @@ namespace DPMHKV_HFT_2023241.Repository
         {
             if (!optionsBuilder.IsConfigured)
             {
-                string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\guitar.mdf;Integrated Security=True;MultipleActiveResultSets=true";
-                optionsBuilder.UseLazyLoadingProxies().UseSqlServer(conn);
+                //string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\guitar.mdf;Integrated Security=True;MultipleActiveResultSets=true";
+                //optionsBuilder.UseLazyLoadingProxies().UseSqlServer(conn);
+                optionsBuilder.UseInMemoryDatabase("GuitarDB").UseLazyLoadingProxies();
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
