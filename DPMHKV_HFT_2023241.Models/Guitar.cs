@@ -12,7 +12,7 @@ namespace DPMHKV_HFT_2023241.Models
         public int SerialNumberID { get; set; }
         public string Shape { get; set; }
         public string Color { get; set; }
-        public int YearOfProduction { get; set; }
+        public int Price { get; set; }
         public string BrandID {  get; set; }
 
         //[ForeignKey(nameof(Brand))]
@@ -36,6 +36,7 @@ namespace DPMHKV_HFT_2023241.Models
             Color = split[2];
             BrandID = split[3];
             MusicianID = split[4];
+            Price = int.Parse(split[5]);
         }
     }
 }

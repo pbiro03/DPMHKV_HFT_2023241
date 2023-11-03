@@ -54,16 +54,16 @@ namespace DPMHKV_HFT_2023241.Repository
             });
             modelBuilder.Entity<Guitar>().HasData(new Guitar[]              
             {
-                    new Guitar("1#Stratocaster#Sunburst#Fender#M2"),
-                    new Guitar("2#Les Paul#Goldtop#Gibson#M6"),
-                    new Guitar("3#Telecaster#Butterscotch#Fender#M7"),
-                    new Guitar("4#SG#Cherry#Gibson#M9"),
-                    new Guitar("5#Super Strato#Blue#Ibanez#M3"),
-                    new Guitar("6#Flying V#White#Gibson#M10"),
-                    new Guitar("7#Acoustic#Natural#Martin#M1"),
-                    new Guitar("8#Jazzmaster#Olympic White#Fender#M4"),
-                    new Guitar("9#PRS Custom 24#Fire Red#PRS#M5"),
-                    new Guitar("10#Stratocaster#Black#Fender#M8")
+                    new Guitar("1#Stratocaster#Sunburst#Fender#M2#300000"),
+                    new Guitar("2#Les Paul#Goldtop#Gibson#M6#350000"),
+                    new Guitar("3#Telecaster#Butterscotch#Fender#M7#270000"),
+                    new Guitar("4#SG#Cherry#Gibson#M9#960000"),
+                    new Guitar("5#Super Strato#Blue#Ibanez#M3#250000"),
+                    new Guitar("6#Flying V#White#Gibson#M10#500000"),
+                    new Guitar("7#Acoustic#Natural#Martin#M1#180000"),
+                    new Guitar("8#Jazzmaster#Olympic White#Fender#M4#400000"),
+                    new Guitar("9#PRS Custom 24#Fire Red#PRS#M5#700000"),
+                    new Guitar("10#Stratocaster#Black#Fender#M8#280000")
             });
             modelBuilder.Entity<Brand>().HasData(new Brand[]
             {
