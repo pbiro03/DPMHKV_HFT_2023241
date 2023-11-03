@@ -17,6 +17,14 @@ namespace DPMHKV_HFT_2023241.Logic.Classes
 
         public void Create(Brand item)
         {
+            if (item.YearOfFoundation<1000) 
+            {
+                throw new ArgumentException("the given year of foundation is impossible");
+            }
+            else if (item.NetWorth<0)
+            {
+                throw new ArgumentException("the company of the brand can not be bankrupt");
+            }
             repo.Create(item);
         }
 

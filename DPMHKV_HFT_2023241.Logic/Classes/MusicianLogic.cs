@@ -20,6 +20,14 @@ namespace DPMHKV_HFT_2023241.Logic.Classes
 
         public void Create(Musician item)
         {
+            if (item.BandName.Length<2)
+            {
+                throw new ArgumentException("Band name is to short");
+            }
+            else if (item.Name.Length<5)
+            {
+                throw new ArgumentException("Name is to short");
+            }
             repo.Create(item);
         }
 

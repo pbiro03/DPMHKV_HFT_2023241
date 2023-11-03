@@ -15,12 +15,16 @@ namespace DPMHKV_HFT_2023241.Logic.Classes
         IRepository<Guitar> repo;
 
         public GuitarLogic(IRepository<Guitar> repo)
-        {
+        { 
             this.repo = repo;
         }
 
         public void Create(Guitar item)
         {
+            if (item.Price<0)
+            {
+                throw new ArgumentException("Price can not be negativ");
+            }
             repo.Create(item);
         }
 
