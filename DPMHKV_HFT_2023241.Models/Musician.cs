@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace DPMHKV_HFT_2023241.Models
         public string MusicianID {  get; set; }
         public string Name {  get; set; }      
         public string BandName {  get; set; }
+        [NotMapped]
         public virtual ICollection<Guitar> Guitars { get; set; }
         public Musician()
         {

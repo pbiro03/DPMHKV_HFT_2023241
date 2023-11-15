@@ -51,65 +51,54 @@ namespace DPMHKV_HFT_2023241.Logic.Classes
         }
 
         //following are the non-crud methods
-        //többtáblás lekérdezés kell!!!!  --> kell csinálni majd még egy külön osztályt --> pl GuitarInfo
         
-        public IEnumerable<GuitarInfo> CountGuitarsByBrand()
+        public IEnumerable<KeyValuePair<string,int>> CountGuitarsByBrand()
         {
 
             return from x in this.repo.ReadAll()
                    group x by x.Brand.BrandID into g
-                   select new GuitarInfo
-                   {
-                       BrandName=g.Key,
-                       //guitarcount=g.Count()
-                   };
+                   select new KeyValuePair<string,int>
+                   (
+                      g.Key,
+                      g.Count()
+                   );
         }
-        public IEnumerable<GuitarInfo> MusiciansWithExpensiveGuitar()
+        public IEnumerable<Musician> MusiciansWithExpensiveGuitar()
         {
             return from x in this.repo.ReadAll()
                    where x.Price > 300000
-                   select new GuitarInfo
+                   group x by x.Musician.Name into g
+                   select new Musician
                    {
-
+                       Name = g.Key
                    };
         }
-        public IEnumerable<GuitarInfo> AVGPriceByBrands()
+        public IEnumerable<KeyValuePair<string,double>> AVGPriceByBrands()
         {
             return from x in this.repo.ReadAll()
                    group x by x.Brand.BrandID into g
-                   select new GuitarInfo
-                   {
-                       BrandName = g.Key,
-                       //AVGPrice= g.Average(t=>t.Price)
-                   };
-
-
+                   select new KeyValuePair<string,double>
+                   (
+                        g.Key,g.Average(t=>t.Price)
+                   );
         }
-        public IEnumerable<GuitarInfo> CountGuitarsByMusician()
+        public IEnumerable<KeyValuePair<string,int>> CountGuitarsByMusician() //not sure about this one
         {
             return from x in this.repo.ReadAll()
-                   group x by x.Musician.MusicianID into g
-                   select new GuitarInfo
-                   {
-                       BrandName = g.Key,
-                       //guitarcount=g.Count
-                   };
+                   group x by x.Musician.Name into g
+                   select new KeyValuePair<string, int>
+                   (
+                       g.Key,g.Count()
+                       );
+                   
         }
-        public IEnumerable<GuitarInfo> GuitarsInBands() //which guitar is in the registered bands
+        public IEnumerable<KeyValuePair<string,string>> GuitarsInBands() //which guitar is in the registered bands
         {
             return from x in this.repo.ReadAll()
-                   group x by x.Musician.BandName into g
-                   select new GuitarInfo
-                   {
-
-                   };
-        }
-
-        public class GuitarInfo
-        {
-            public string BrandName;
-            public string Shape;
-            public string Color;
+                   select new KeyValuePair<string, string>
+                   (x.Musician.BandName,x.BrandID
+                       ) ;
+                   
         }
     }
 }

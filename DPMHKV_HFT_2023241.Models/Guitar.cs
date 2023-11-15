@@ -20,6 +20,7 @@ namespace DPMHKV_HFT_2023241.Models
 
         //[ForeignKey(nameof(Musician))]
         public string MusicianID {  get; set; }
+        [NotMapped]
         public virtual Musician Musician{ get; set; }
         
         
