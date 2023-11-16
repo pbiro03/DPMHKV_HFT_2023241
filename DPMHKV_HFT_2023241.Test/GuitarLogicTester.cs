@@ -15,10 +15,8 @@ namespace DPMHKV_HFT_2023241.Test
     {
         GuitarLogic guitarLogic;
         MusicianLogic musicianLogic;
-        BrandLogic brandLogic;
         Mock<IRepository<Guitar>> mockGuitarRepo;
         Mock<IRepository<Musician>> mockMusicianRepo;
-        Mock<IRepository<Brand>> mockBrandRepo;
 
 
         [SetUp]
@@ -27,25 +25,25 @@ namespace DPMHKV_HFT_2023241.Test
             mockGuitarRepo = new Mock<IRepository<Guitar>>();
             var guitars = new List<Guitar>()
             {
-                new Guitar("1#Stratocaster#Sunburst#Fender#M2#300000"),
-                new Guitar("3#Telecaster#Butterscotch#Fender#M7#270000"),
-                new Guitar("5#Super Strato#Blue#Ibanez#M3#250000"),
-                new Guitar("2#Les Paul#Goldtop#Gibson#M6#350000"),
+                new Guitar("1#Stratocaster#Sunburst#1#2#300000"),
+                new Guitar("3#Telecaster#Butterscotch#1#7#270000"),
+                new Guitar("5#Super Strato#Blue#2#3#250000"),
+                new Guitar("2#Les Paul#Goldtop#3#6#350000"),
 
             }.AsQueryable();
 
             mockMusicianRepo = new Mock<IRepository<Musician>>();
             var musicians = new List<Musician>()
             {
-                new Musician("M1#John Lennon#The Beatles"),
-                new Musician("M2#Jimi Hendrix#The Jimi Hendrix Experience"),
-                new Musician("M3#Lukács Péter#Bikini"),
+                new Musician("1#John Lennon#The Beatles"),
+                new Musician("2#Jimi Hendrix#The Jimi Hendrix Experience"),
+                new Musician("3#Lukács Péter#Bikini"),
             }.AsQueryable();
             var brands = new List<Brand>()
             {
-                new Brand("Fender#1946#Andy Mooney#500000000"),
-                new Brand("Ibanez#1908#Hoshino Gakki#80000000"),
-                new Brand("Gibson#1902#James 'JC' Curleigh#160000000"),
+                new Brand("1#Fender#1946#Andy Mooney#500000000"),
+                new Brand("2#Ibanez#1908#Hoshino Gakki#80000000"),
+                new Brand("3#Gibson#1902#James 'JC' Curleigh#160000000"),
             };
             guitars.ElementAt(0).Musician = musicians.ElementAt(2);
             guitars.ElementAt(0).Brand = brands[0];
@@ -125,7 +123,7 @@ namespace DPMHKV_HFT_2023241.Test
         [Test]
         public void CreateGuitarWithCorrectInputTest()
         {
-            var guitar = new Guitar("8#Stratocaster#Black#Fender#M2#600000");
+            var guitar = new Guitar("8#Stratocaster#Black#1#2#600000");
 
             guitarLogic.Create(guitar);
 
@@ -134,7 +132,7 @@ namespace DPMHKV_HFT_2023241.Test
         [Test]
         public void CreateGuitarWithWrongInputTest()
         {
-            var guitar = new Guitar("8#Stratocaster#Black#Fender#M2#-700");
+            var guitar = new Guitar("8#Stratocaster#Black#1#2#-700");
             try
             {
                 guitarLogic.Create(guitar);
@@ -146,14 +144,14 @@ namespace DPMHKV_HFT_2023241.Test
         [Test]
         public void CreateMusicianWithCorrectInputTest()
         {
-            var musician = new Musician("M5#Brian May#Queen");
+            var musician = new Musician("5#Brian May#Queen");
             musicianLogic.Create(musician);
             mockMusicianRepo.Verify(t => t.Create(musician), Times.Once);
         }
         [Test]
         public void CreateMusicianWithWrongInputTest1()
         {
-            var musician = new Musician("M5#Brian May#Q");
+            var musician = new Musician("5#Brian May#Q");
             try
             {
                 musicianLogic.Create(musician);
@@ -164,7 +162,7 @@ namespace DPMHKV_HFT_2023241.Test
         [Test]
         public void CreateMusicianWithWrongInputTest2() 
         {
-            var musician = new Musician("M5#May#Queen");
+            var musician = new Musician("5#May#Queen");
             try { musicianLogic.Create(musician); }
             catch { }
             mockMusicianRepo.Verify(t => t.Create(musician), Times.Never);

@@ -15,12 +15,12 @@ namespace DPMHKV_HFT_2023241.Repository
 
         public override Brand Read(int id)
         {
-            return ctx.Brands.FirstOrDefault(x => int.Parse(x.BrandID) == id);
+            return ctx.Brands.FirstOrDefault(x => x.BrandID == id);
         }
 
         public override void Update(Brand item)
         {
-            var old = Read(int.Parse(item.BrandID));
+            var old = Read(item.BrandID);
             foreach (var prop in old.GetType().GetProperties())
             {
                 prop.SetValue(old, prop.GetValue(item));

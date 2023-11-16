@@ -15,12 +15,12 @@ namespace DPMHKV_HFT_2023241.Repository
 
         public override Musician Read(int id)
         {
-            return ctx.Musicians.FirstOrDefault(x => int.Parse(x.MusicianID) == id);
+            return ctx.Musicians.FirstOrDefault(x => x.MusicianID == id);
         }
 
         public override void Update(Musician item)
         {
-            var old = Read(int.Parse(item.MusicianID));
+            var old = Read(item.MusicianID);
             foreach (var prop in old.GetType().GetProperties())
             {
                 prop.SetValue(old, prop.GetValue(item));

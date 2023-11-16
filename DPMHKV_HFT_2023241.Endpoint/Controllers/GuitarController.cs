@@ -5,7 +5,7 @@ using DPMHKV_HFT_2023241.Models;
 
 namespace DPMHKV_HFT_2023241.Endpoint.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class GuitarController : ControllerBase
     {
