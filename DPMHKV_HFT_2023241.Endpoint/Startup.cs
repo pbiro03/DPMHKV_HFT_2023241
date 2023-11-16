@@ -60,8 +60,8 @@ namespace DPMHKV_HFT_2023241.Endpoint
             app.UseExceptionHandler(c => c.Run(async context =>
             {
                 var exception = context.Features
-                .Get<IExceptionHandlerPathFeature>()
-                .Error;
+                    .Get<IExceptionHandlerPathFeature>()
+                    .Error;
                 var response = new { error = exception.Message };
                 await context.Response.WriteAsJsonAsync(response);
             }));
