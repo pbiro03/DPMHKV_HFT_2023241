@@ -10,19 +10,36 @@ namespace DPMHKV_HFT_2023241.Client
     {
         static RestService rest;
         
-        
         static void Create(string entitiy)
         {
-            if (entitiy=="Guitar") 
+            if (entitiy == "Guitar")
             {
                 Console.WriteLine("Enter guitar shape: ");
                 string shape = Console.ReadLine();
                 Console.WriteLine("Enter guitar color: ");
-                string color= Console.ReadLine();
+                string color = Console.ReadLine();
                 Console.WriteLine("Enter guitar price: ");
                 int price = int.Parse(Console.ReadLine());
-                rest.Post(new Guitar() { Shape = shape,Color=color,Price=price }, "guitar");
-            }            
+                rest.Post(new Guitar() { Shape = shape, Color = color, Price = price }, "guitar");
+            }
+            else if (entitiy == "Musician")
+            {
+                Console.WriteLine("Enter Name: ");
+                string name = Console.ReadLine();
+                Console.WriteLine("Enter Band Name: ");
+                string bandname = Console.ReadLine();
+                rest.Post(new Musician() { Name = name,BandName=bandname }, "api/musician");
+            }
+            else if (entitiy == "Brand")
+            {
+                Console.WriteLine("Enter Name: ");
+                string name = Console.ReadLine();
+                Console.WriteLine("Enter year of foundation: ");
+                int foundation = int.Parse(Console.ReadLine());
+                Console.WriteLine("Enter Net Worth: ");
+                int networth= int.Parse(Console.ReadLine());
+                rest.Post(new Brand() { BrandName = name, NetWorth=networth,YearOfFoundation =foundation }, "api/brand");
+            }
         }
         static void Update(string entity)
         {
@@ -36,7 +53,16 @@ namespace DPMHKV_HFT_2023241.Client
                 one.Price = price;
                 rest.Put(one, "guitar");
             }
-           
+            else if (entity == "Brand")
+            {
+                Console.Write("Enter brand ID to update: ");
+                int id = int.Parse(Console.ReadLine());
+                Brand one = rest.Get<Brand>(id, "guitar");
+                Console.Write($"New Networth [old: {one.NetWorth}]: ");
+                int price = int.Parse(Console.ReadLine());
+                one.NetWorth = price;
+                rest.Put(one, "guitar");
+            }
         }
         static void Delete(string entitiy) 
         {
@@ -45,6 +71,18 @@ namespace DPMHKV_HFT_2023241.Client
                 Console.Write("Enter Guitar's id to delete: ");
                 int id = int.Parse(Console.ReadLine());
                 rest.Delete(id, "guitar");
+            }
+            else if (entitiy == "Brand")
+            {
+                Console.Write("Enter Brand's id to delete: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "api/brand");
+            }
+            else if(entitiy == "Musician")
+            {
+                Console.Write("Enter Musician's id to delete: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "api/musician");
             }
         }
         static void List(string entitiy) 
@@ -58,12 +96,27 @@ namespace DPMHKV_HFT_2023241.Client
                     Console.WriteLine(item.SerialNumberID+" "+item.Color+" "+item.Shape);
                 }
             }
+            else if (entitiy == "Brand")
+            {
+                List<Brand> brands = rest.Get<Brand>("api/brand");
+                foreach (var item in brands)
+                {
+                    Console.WriteLine(item.BrandName);
+                }
+            }
+            else if (entitiy == "Musician")
+            {
+                List<Musician> musicians = rest.Get<Musician>("api/musician");
+                foreach (var item in musicians)
+                {
+                    Console.WriteLine(item.Name);
+                }
+            }
             Console.ReadLine();
         }
         static void Main(string[] args)
         {
-            rest = new RestService("http://localhost:20630/","guitar");
-            
+            rest = new RestService("http://localhost:20630/");//,"guitar");
 
             var guitarSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List("Guitar"))
