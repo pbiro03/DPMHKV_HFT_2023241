@@ -13,11 +13,12 @@ namespace DPMHKV_HFT_2023241.Logic.Classes
     public class GuitarLogic:IGuitar
     {
         IRepository<Guitar> repo;
-
+        
         public GuitarLogic(IRepository<Guitar> repo)
         { 
             this.repo = repo;
         }
+        
 
         public void Create(Guitar item)
         {
@@ -82,7 +83,7 @@ namespace DPMHKV_HFT_2023241.Logic.Classes
                         g.Key,g.Average(t=>t.Price)
                    );
         }
-        public IEnumerable<KeyValuePair<string,int>> CountGuitarsByMusician() //not sure about this one
+        public IEnumerable<KeyValuePair<string,int>> CountGuitarsByMusician()
         {
             return from x in this.repo.ReadAll()
                    group x by x.Musician.Name into g

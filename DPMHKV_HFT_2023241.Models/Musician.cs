@@ -29,5 +29,19 @@ namespace DPMHKV_HFT_2023241.Models
             BandName = split[2];
             Guitars = new HashSet<Guitar>();
         }
+        public override bool Equals(object obj)
+        {
+            Musician b = obj as Musician;
+            if (b == null)
+            {
+                return false;
+            }
+            else
+            {
+                return this.MusicianID == b.MusicianID
+                    && this.Name == b.Name
+                    && this.BandName == b.BandName;
+            }
+        }
     }
 }

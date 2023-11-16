@@ -16,6 +16,7 @@ namespace DPMHKV_HFT_2023241.Models
         public string BrandID {  get; set; }
 
         //[ForeignKey(nameof(Brand))]
+        [NotMapped]
         public virtual Brand Brand { get; set; }
 
         //[ForeignKey(nameof(Musician))]

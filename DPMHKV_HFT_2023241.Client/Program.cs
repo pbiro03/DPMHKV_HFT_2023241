@@ -1,4 +1,6 @@
-﻿using DPMHKV_HFT_2023241.Repository;
+﻿using DPMHKV_HFT_2023241.Logic.Classes;
+using DPMHKV_HFT_2023241.Models;
+using DPMHKV_HFT_2023241.Repository;
 using System;
 using System.Linq;
 
@@ -13,8 +15,7 @@ namespace DPMHKV_HFT_2023241.Client
             var q2 = ctx.Brands.Select(x => x.NetWorth);
             var q3 = ctx.Musicians.Select(x => $"{x.Name} from {x.BandName}");
 
-            ;
-
+            
         }
     }
 }
