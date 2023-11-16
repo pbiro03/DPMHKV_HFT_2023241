@@ -40,27 +40,27 @@ namespace DPMHKV_HFT_2023241.Test
                 new Musician("M1#John Lennon#The Beatles"),
                 new Musician("M2#Jimi Hendrix#The Jimi Hendrix Experience"),
                 new Musician("M3#Lukács Péter#Bikini"),
-            };
-            mockBrandRepo = new Mock<IRepository<Brand>>();
+            }.AsQueryable();
             var brands = new List<Brand>()
             {
                 new Brand("Fender#1946#Andy Mooney#500000000"),
                 new Brand("Ibanez#1908#Hoshino Gakki#80000000"),
                 new Brand("Gibson#1902#James 'JC' Curleigh#160000000"),
             };
-            guitars.ElementAt(0).Musician = musicians[2];
+            guitars.ElementAt(0).Musician = musicians.ElementAt(2);
             guitars.ElementAt(0).Brand = brands[0];
-            guitars.ElementAt(1).Musician = musicians[1];
+            guitars.ElementAt(1).Musician = musicians.ElementAt(1);
             guitars.ElementAt(1).Brand = brands[0];
-            guitars.ElementAt(2).Musician = musicians[0];
+            guitars.ElementAt(2).Musician = musicians.ElementAt(0);
             guitars.ElementAt(2).Brand = brands[1];
-            guitars.ElementAt(3).Musician = musicians[2];
+            guitars.ElementAt(3).Musician = musicians.ElementAt(2);
             guitars.ElementAt(3).Brand = brands[2];
 
             guitarLogic = new GuitarLogic(mockGuitarRepo.Object);
-
             mockGuitarRepo.Setup(x => x.ReadAll()).Returns(guitars);
 
+            musicianLogic = new MusicianLogic(mockMusicianRepo.Object);
+            mockMusicianRepo.Setup(t => t.ReadAll()).Returns(musicians);
         }
         [Test]
         public void CountGuitarByBrandTest()
@@ -113,7 +113,7 @@ namespace DPMHKV_HFT_2023241.Test
             CollectionAssert.AreEqual(actual, expected);
         }
         [Test]
-        public void MusiciansWithExpensiveGuitarTest() 
+        public void MusiciansWithExpensiveGuitarTest()
         {
             var actual = guitarLogic.MusiciansWithExpensiveGuitar().ToList();
             var expected = new List<Musician>()
@@ -122,5 +122,53 @@ namespace DPMHKV_HFT_2023241.Test
             };
             Assert.That(actual[0].Equals(expected[0]));
         }
+        [Test]
+        public void CreateGuitarWithCorrectInputTest()
+        {
+            var guitar = new Guitar("8#Stratocaster#Black#Fender#M2#600000");
+
+            guitarLogic.Create(guitar);
+
+            mockGuitarRepo.Verify(t => t.Create(guitar), Times.Once);
+        }
+        [Test]
+        public void CreateGuitarWithWrongInputTest()
+        {
+            var guitar = new Guitar("8#Stratocaster#Black#Fender#M2#-700");
+            try
+            {
+                guitarLogic.Create(guitar);
+            }
+            catch { }
+
+            mockGuitarRepo.Verify(t => t.Create(guitar), Times.Never);
+        }
+        [Test]
+        public void CreateMusicianWithCorrectInputTest()
+        {
+            var musician = new Musician("M5#Brian May#Queen");
+            musicianLogic.Create(musician);
+            mockMusicianRepo.Verify(t => t.Create(musician), Times.Once);
+        }
+        [Test]
+        public void CreateMusicianWithWrongInputTest1()
+        {
+            var musician = new Musician("M5#Brian May#Q");
+            try
+            {
+                musicianLogic.Create(musician);
+            }
+            catch { }
+            mockMusicianRepo.Verify(t=>t.Create(musician), Times.Never);
+        }
+        [Test]
+        public void CreateMusicianWithWrongInputTest2() 
+        {
+            var musician = new Musician("M5#May#Queen");
+            try { musicianLogic.Create(musician); }
+            catch { }
+            mockMusicianRepo.Verify(t => t.Create(musician), Times.Never);
+        }
+
     }
 }
