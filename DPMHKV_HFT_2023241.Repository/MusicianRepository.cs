@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace DPMHKV_HFT_2023241.Repository
 {
-    public class MusicianRepository : AbstractRepository<Guitar>, IRepository<Guitar>
+    public class MusicianRepository : AbstractRepository<Musician>, IRepository<Musician>
     {
         public MusicianRepository(GuitarDBContext ctx) : base(ctx)
         {
         }
 
-        public override Guitar Read(int id)
+        public override Musician Read(int id)
         {
-            return ctx.Guitars.FirstOrDefault(x => x.SerialNumberID == id);
+            return ctx.Musicians.FirstOrDefault(x => int.Parse(x.MusicianID) == id);
         }
 
-        public override void Update(Guitar item)
+        public override void Update(Musician item)
         {
-            var old = Read(item.SerialNumberID);
+            var old = Read(int.Parse(item.MusicianID));
             foreach (var prop in old.GetType().GetProperties())
             {
                 prop.SetValue(old, prop.GetValue(item));
