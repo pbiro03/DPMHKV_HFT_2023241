@@ -38,7 +38,7 @@ namespace DPMHKV_HFT_2023241.Endpoint.Controllers
         }
 
         // PUT api/<GuitarController>/5
-        [HttpPut("{id}")]
+        [HttpPut]//("{id}")]
         public void Update( [FromBody] Guitar value)
         {
             this.logic.Update(value);

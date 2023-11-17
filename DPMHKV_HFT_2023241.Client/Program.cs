@@ -57,11 +57,21 @@ namespace DPMHKV_HFT_2023241.Client
             {
                 Console.Write("Enter brand ID to update: ");
                 int id = int.Parse(Console.ReadLine());
-                Brand one = rest.Get<Brand>(id, "guitar");
+                Brand one = rest.Get<Brand>(id, "api/brand");
                 Console.Write($"New Networth [old: {one.NetWorth}]: ");
                 int price = int.Parse(Console.ReadLine());
                 one.NetWorth = price;
-                rest.Put(one, "guitar");
+                rest.Put(one, "api/brand");
+            }
+            else if(entity =="Musician")
+            {
+                Console.Write("Enter musician ID to update: "); 
+                int id = int.Parse(Console.ReadLine());
+                Musician one = rest.Get<Musician>(id, "api/musician");
+                Console.Write($"New Band [band: {one.BandName}]: ");
+                string band = Console.ReadLine();
+                one.BandName = band;
+                rest.Put(one, "api/musician");
             }
         }
         static void Delete(string entitiy) 
@@ -93,7 +103,7 @@ namespace DPMHKV_HFT_2023241.Client
                 List<Guitar> guitars = rest.Get<Guitar>("guitar");
                 foreach (var item in guitars)
                 {
-                    Console.WriteLine(item.SerialNumberID+" "+item.Color+" "+item.Shape);
+                    Console.WriteLine(item.SerialNumberID+" "+item.Color+" "+item.Shape+" "+item.Price);
                 }
             }
             else if (entitiy == "Brand")
@@ -101,7 +111,7 @@ namespace DPMHKV_HFT_2023241.Client
                 List<Brand> brands = rest.Get<Brand>("api/brand");
                 foreach (var item in brands)
                 {
-                    Console.WriteLine(item.BrandName);
+                    Console.WriteLine(item.BrandID+" "+item.BrandName+" "+item.NetWorth);
                 }
             }
             else if (entitiy == "Musician")
@@ -109,7 +119,7 @@ namespace DPMHKV_HFT_2023241.Client
                 List<Musician> musicians = rest.Get<Musician>("api/musician");
                 foreach (var item in musicians)
                 {
-                    Console.WriteLine(item.Name);
+                    Console.WriteLine(item.MusicianID+" "+item.Name+" "+item.BandName);
                 }
             }
             Console.ReadLine();
